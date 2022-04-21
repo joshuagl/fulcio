@@ -58,6 +58,7 @@ const (
 	GithubWorkflowName
 	GithubWorkflowRepository
 	GithubWorkflowRef
+	GithubWorkflowActor
 )
 
 type ChallengeResult struct {
@@ -370,6 +371,7 @@ func workflowInfoFromIDToken(token *oidc.IDToken) (map[AdditionalInfo]string, er
 		Repository string `json:"repository"`
 		Workflow   string `json:"workflow"`
 		Ref        string `json:"ref"`
+		Actor      string `json:"actor"`
 		// The other fields that are present here seem to depend on the type
 		// of workflow trigger that initiated the action.
 	}
@@ -383,7 +385,8 @@ func workflowInfoFromIDToken(token *oidc.IDToken) (map[AdditionalInfo]string, er
 		GithubWorkflowTrigger:    claims.Trigger,
 		GithubWorkflowName:       claims.Workflow,
 		GithubWorkflowRepository: claims.Repository,
-		GithubWorkflowRef:        claims.Ref}, nil
+		GithubWorkflowRef:        claims.Ref,
+		GithubWorkflowActor:      claims.Actor}, nil
 }
 
 func isSpiffeIDAllowed(host, spiffeID string) bool {

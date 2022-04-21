@@ -150,6 +150,13 @@ func AdditionalExtensions(subject *challenges.ChallengeResult) []pkix.Extension 
 				Value: []byte(ref),
 			})
 		}
+
+		if ref, ok := subject.AdditionalInfo[challenges.GithubWorkflowActor]; ok {
+			res = append(res, pkix.Extension{
+				Id:    asn1.ObjectIdentifier{1, 3, 5, 1, 4, 1, 57264, 1, 7},
+				Value: []byte(actor),
+			})
+		}
 	}
 	return res
 }
